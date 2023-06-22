@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Practica 2 - Carrito de Compras</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/stylesheet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<body>
+<form action="/procesar" method="post">
+    <div class="mx-auto" style="width: 80%">
+        <div class="card ">
+            <div class="card-header">
+                <h4>Datos del Cliente</h4>
+            </div>
+            <div th:if="${usuario == 'visitante'}" class="card-body">
+                <tag>Nombre del Cliente: </tag>
+                <input id="nombre" name="nombre" required >
+            </div>
+            <div th:if="${usuario != 'visitante'}" class="card-body">
+                <tag>Nombre del Cliente: </tag>
+                <input id="nombre" name="nombre" th:value="${usuario}"></input>
+        </div>
+        </div>
+    </div>
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Carrito</h2>
+                </div>
+                <div th:each="user : ${usuario}" class="col-sm-6">
+                    <a th:if="${user != 'visitante'}" href="/invalidarSesion" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Logout</span></a>
+                    <a href="/" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Productos</span></a>
+                    <a th:if="${user == 'visitante'}" href="/autenti/carrito" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Iniciar Sesion</span></a>
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="selectAll">
+								<label for="selectAll"></label>
+							</span>
+                </th>
+                <th>Producto</th>
+                <th>Precio(RD$)</th>
+                <th>Cantidad</th>
+                <th>Accion</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="producto : ${productos}">
+                <td>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="checkbox1" name="options[]" value="1">
+								<label for="checkbox1"></label>
+							</span>
+                </td>
+                <td th:text="${producto.nombre}">Producto</td>
+                <td th:text="${producto.precio}">Precio</td>
+                <td th:text="${producto.cantidad}">Cantidad</td>
+                <td th:text="${producto.total()}">Total</td>
+                <td><a th:text="Eliminar" th:href="'/eliminar/'+${producto.id}" th class="btn btn-danger btn-sm"/></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="container-fluid align-center">
+            <button type="submit" class="btn btn-primary">Proceder</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='/limpiar'">Limpiar Carrito</button>
+        </div>
+        <div class="clearfix">
+            <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+            <ul class="pagination">
+                <li class="page-item disabled"><a href="#">Previous</a></li>
+                <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                <li class="page-item"><a href="#" class="page-link">3</a></li>
+                <li class="page-item"><a href="#" class="page-link">4</a></li>
+                <li class="page-item"><a href="#" class="page-link">5</a></li>
+                <li class="page-item"><a href="#" class="page-link">Next</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</form>
+
+</body>
+</html>

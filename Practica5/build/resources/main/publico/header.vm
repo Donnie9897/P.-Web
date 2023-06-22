@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ecommerce - Carrito</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <p class="text-light bg-dark">Ecommerce</p>
+        <script type="text/javascript">#parse("publico/jquery-3.2.1.min.js")</script>
+
+    #if($user != $null)
+    <script>
+        var webSocket;
+        var tiempoReconectar = 4000;
+
+        $(document).ready(function() {
+            conectar();
+        })
+        function conectar(){
+
+                webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/admini");
+
+                webSocket.onopen = function (e) {
+                    console.log("Conectado - status " + this.readyState);
+                    webSocket.send("cambio")
+                }
+                webSocket.onmessage = function (e){
+                    recibirInformacionServidor(e.data)
+                }
+
+                webSocket.onclose = function(e){
+                    console.log("Desconectado - status "+this.readyState);
+                    recibirInformacionServidor(e.data)
+                };
+
+
+        }
+        function recibirInformacionServidor(mensaje){
+            $("#cantidad").text(mensaje);
+
+        }
+        function verificarConexion(){
+            if(!webSocket || webSocket.readyState == 3){
+                conectar();
+            }
+        }
+
+        function close(){
+            webSocket.onclose = function (e) {
+                console.log("Desconectado - status " + this.readyState);
+            }
+            return true
+        }
+
+        setInterval(verificarConexion, tiempoReconectar);
+    </script>
+    #end
+</head>
+
+<body>
+<nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+    <a href="#" class="navbar-brand">Home</a>
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarmenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse my-2 my-lg-0" id="navbarmenu">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a href="/comprar" class="nav-link">Compras</a> </li>
+            <li class="nav-item"><a href="/ventas" class="nav-link">Ventas</a> </li>
+            <li class="nav-item"><a href="/productos" class="nav-link">Administracion</a> </li>
+
+            <li class="nav-item"><a href="/admin" class="nav-link" >Estadisticas de ventas</a> </li>
+
+            #if($cantidad == $null)
+                <li class="nav-item"><a href="/carrito" class="nav-link">Carrito (0)</a> </li>
+            #else
+                <li class="nav-item"><a href="/carrito" class="nav-link">Carrito ($cantidad)</a> </li>
+            #end
+
+            #if($user != $null)
+                <li class="nav-item"><a href="/logout" class="nav-link" onclick="close()">Cerrar Sesion</a> </li>
+            #end
+        </ul>
+    </div>
+</nav>

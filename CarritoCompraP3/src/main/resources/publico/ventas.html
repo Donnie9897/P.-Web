@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Practica 2 - Carrito de Compras</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/stylesheet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<body>
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Historial <b>de Ventas</b></h2>
+                </div>
+                <div class="col-sm-6">
+                   <a href="/productos" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Volver</span></a>
+                </div>
+            </div>
+        </div>
+
+        <table th:each="venta : ${ventas}" class="table table-striped table-hover">
+            <thead>
+            <h4 th:text="${venta.nombreCliente}"></h4>
+            <h5 th:text="${venta.getFecha()}"></h5>
+            <tr>
+                <th>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="selectAll">
+								<label for="selectAll"></label>
+							</span>
+                </th>
+                <th>Producto</th>
+                <th>Precio(RD$)</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <form >
+                <form th:each="producto : ${venta.getListaProductos()}" method="post">
+                <tr>
+                    <td>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="checkbox1" name="options[]" value="1">
+								<label for="checkbox1"></label>
+							</span>
+                    </td>
+                    <td th:text="${producto.nombre}"></td>
+                    <td th:text="${producto.getPrecio()}"></td>
+                    <td th:text="${producto.getCantidad()}"></td>
+                    <td th:text="${producto.total()}"></td>
+                </tr>
+                <tr>
+                    <td></td><td></td>
+                    <td>Total:</td>
+                    <td th:text="${venta.getTotal()}"></td>
+                </tr>
+            </form>
+            </form>
+            </tbody>
+        </table>
+        <div class="clearfix">
+            <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+            <ul class="pagination">
+                <li class="page-item disabled"><a href="#">Previous</a></li>
+                <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                <li class="page-item"><a href="#" class="page-link">3</a></li>
+                <li class="page-item"><a href="#" class="page-link">4</a></li>
+                <li class="page-item"><a href="#" class="page-link">5</a></li>
+                <li class="page-item"><a href="#" class="page-link">Next</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

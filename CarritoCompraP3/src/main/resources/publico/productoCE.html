@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Practica 2 - Carrito de Compras</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/stylesheet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<body>
+<!-- Edit Modal HTML -->
+<div  class="container">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" th:attr="action=${accion}" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h4 class="modal-title">Crear Producto</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nombreForm">Nombre</label>
+                        <input th:readonly="${visualizar}" th:value="${producto} ? ${producto.nombre} : ''" type="text"  name="nombre" class="form-control" id="nombreForm" required>
+                    </div>
+                    <div class="form-group" >
+                        <label for="precioForm">Precio</label>
+                        <input th:readonly="${visualizar}" th:value="${producto} ? ${producto.precio} : ''" type="number"  name="precio" class="form-control" id="precioForm" required>
+                    </div>
+                    <div class="form-group" >
+                        <label for="desc">Descripción</label>
+                        <textarea th:readonly="${visualizar}" th:value="${producto} ? ${producto.descripcion} : ''" class="form-control" id="desc" name="desc" required></textarea>
+                    </div>
+                    <div class="form-group mb-2" th:if="${producto == null}">
+                        <label for="img">Imagenes</label>
+                        <input th:readonly="${visualizar}" th:value="${producto} ? ${producto.fotos} : ''" type="file" class="form-control mb-2" id="img" name="img" multiple required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button  class="btn btn-light" onclick="location.href='/productos'">Cancelar</button>
+                    <button th:if="${!visualizar}" type="submit" class="btn btn-success">Crear</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
