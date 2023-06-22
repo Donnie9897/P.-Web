@@ -3,7 +3,7 @@ plugins {
     id 'application'
 }
 
-group 'org.example'
+group 'pucmm.edu.eitc'
 version '1.0-SNAPSHOT'
 
 repositories {

@@ -17,7 +17,7 @@ import java.util.*;
 
 
 public class Main {
-    private static String modoConexion = ""; //conexion
+    private static String modoConexion = "";
     public static List<Session> usuariosConectados = new ArrayList<>();
     public static List<SseClient> UserList = new ArrayList<>();
     public static void main(String[] args){
