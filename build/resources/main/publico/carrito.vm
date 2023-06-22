@@ -1,0 +1,78 @@
+#parse("publico/header.vm")
+
+<div class="container-fluid mb-4">
+    <div class="card text-center">
+      <div class="card-body">
+        <h3 class="text-center">Ecommerce</h3>
+      </div>
+    </div>
+  <form action="/procesar" method="post">
+
+  <div class="mx-auto" style="width: 80%">
+    <div class="card ">
+      <div class="card-header">
+        <h4>Datos del Cliente</h4>
+      </div>
+      <div class="card-body">
+        <tag>Nombre Cliente: </tag>
+        <input id="nombre" name="nombre" required >
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid mb-3">
+    <div>
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">Producto</th>
+          <th scope="col">Precio($RD)</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Acción</th>
+        </tr>
+        </thead>
+        <tbody>
+        #foreach($producto in $productos)
+          <tr>
+            <td>$producto.nombre</td>
+            <td>$producto.precio</td>
+            <td>$producto.cantidad</td>
+            <td>$producto.total()</td>
+            <td><a href="/eliminar/$producto.getId()" class="btn btn-danger">Eliminar</a></td>
+          </tr>
+        #end
+        </tbody>
+      </table>
+    </div>
+    <div class="container-fluid align-center">
+      <button type="submit" class="btn btn-primary" id="boton">Proceder</button>
+      <button type="button" class="btn btn-secondary" onclick="location.href='/limpiar'">Limpiar Carrito</button>
+    </div>
+  </div>
+  </form>
+</div>
+<script type="text/javascript" >#include("/publico/jquery-3.2.1.min.js")</script>
+<script>
+  var webSocket
+  var tiempoRect = 5000
+
+  $(document).ready(function (){
+    conectar();
+
+    $('#boton').click(function (){
+      webSocket.send("activar")
+    })
+  })
+  function conectar(){
+    webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/admini");
+  }
+
+  function verificarConexion(){
+    if(!webSocket || webSocket.readyState == 3){
+      conectar();
+    }
+  }
+
+  setInterval(verificarConexion, tiempoRect); //para reconectar.
+</script>
+#include("publico/footer.vm")
