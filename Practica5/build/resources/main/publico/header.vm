@@ -20,15 +20,18 @@
                 webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/admini");
 
                 webSocket.onopen = function (e) {
-                    console.log("Conectado - status " + this.readyState);
+
+                    console.log("Connected - status " + this.readyState);
                     webSocket.send("cambio")
+
                 }
                 webSocket.onmessage = function (e){
+
                     recibirInformacionServidor(e.data)
                 }
 
                 webSocket.onclose = function(e){
-                    console.log("Desconectado - status "+this.readyState);
+                    console.log("Disconnected - status "+this.readyState);
                     recibirInformacionServidor(e.data)
                 };
 

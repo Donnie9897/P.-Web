@@ -1,33 +1,33 @@
-org/example/servicios/ServiceFoto.java
- org.example.servicios.ServiceFoto
-org/example/servicios/ServiceProdComprado.java
- org.example.servicios.ServiceProdComprado
+org/example/clases/Cart.java
+ org.example.clases.Cart
+org/example/servicios/ServicioComprado.java
+ org.example.servicios.ServicioComprado
+org/example/servicios/ServicioUsuario.java
+ org.example.servicios.ServicioUsuario
+org/example/servicios/ServicioPic.java
+ org.example.servicios.ServicioPic
 org/example/BootStrapServices.java
  org.example.BootStrapServices
 org/example/clases/Coment.java
  org.example.clases.Coment
 org/example/clases/User.java
  org.example.clases.User
+org/example/servicios/ServicioComent.java
+ org.example.servicios.ServicioComent
 org/example/clases/Foto.java
  org.example.clases.Foto
-org/example/servicios/ServiceProduct.java
- org.example.servicios.ServiceProduct
-org/example/clases/Producto.java
- org.example.clases.Producto
-org/example/servicios/ServiceUsuario.java
- org.example.servicios.ServiceUsuario
-org/example/servicios/ServiceComentario.java
- org.example.servicios.ServiceComentario
+org/example/clases/VProducto.java
+ org.example.clases.VProducto
 org/example/DBService.java
  org.example.DBService
 org/example/clases/Comprado.java
  org.example.clases.Comprado
  org.example.clases.ID
-org/example/clases/Cart.java
- org.example.clases.Cart
 org/example/Main.java
  org.example.Main
-org/example/clases/VProducto.java
- org.example.clases.VProducto
-org/example/servicios/ServiceVentas.java
- org.example.servicios.ServiceVentas
+org/example/clases/Producto.java
+ org.example.clases.Producto
+org/example/servicios/ServicioProdu.java
+ org.example.servicios.ServicioProdu
+org/example/servicios/ServicioVentas.java
+ org.example.servicios.ServicioVentas
